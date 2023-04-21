@@ -1,1 +1,1 @@
-# Accurate-interpretable_generative_model-for-image-based-prediciton
+# Accurate-interpretable-generative-model-for-image-based-prediciton
