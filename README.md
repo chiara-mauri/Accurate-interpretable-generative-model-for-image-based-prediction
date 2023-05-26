@@ -1,1 +1,1 @@
-# Accurate-interpretable-generative-model-for-image-based-prediciton
+# Interpretable-subject-level-prediciton
