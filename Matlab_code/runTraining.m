@@ -14,7 +14,7 @@ nLatentTot = numel(nLatentValues);
 
 %load target and covariates
 
-load([dataPath,'trainAge_N1000.mat']) %load age
+load([dataPath,'trainAge.mat']) %load age
 %array of size (# of subjects, 1) with age of all training subjects
 
 targetTrain = age;
@@ -34,7 +34,7 @@ trainBasisFun = (trainBasisFunInit-trainBasisFunMean)./trainBasisFunStd;
 
 % training images
 
-load([dataPath,'trainImages_N1000.mat']) %load im_healthy_train
+load([dataPath,'trainImages.mat']) %load im_healthy_train
 %load 4D array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3)
 % with images of all training subjects
 
