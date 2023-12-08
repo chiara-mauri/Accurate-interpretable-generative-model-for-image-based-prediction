@@ -11,7 +11,10 @@ Validation and testing data should be provided in the same way.
 NOTE: the Python code is now faster than the Matlab version, but it will be updated.
 
 ## To cite 
-Please cite 
+Please cite:
+
+A Lightweight Causal Model for Interpretable Subject-level Prediction. Mauri, C., Cerri, S., Puonti, O., Mühlau, M. and Van Leemput, K., 2023. arXiv preprint arXiv:2306.11107
+https://arxiv.org/pdf/2306.11107.pdf
 
 
   
