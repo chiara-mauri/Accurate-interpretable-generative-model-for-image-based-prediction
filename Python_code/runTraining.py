@@ -44,9 +44,9 @@ showFigures = True
 
 #load training data
 
-age = np.load(dataPath + "trainAge_N1000.npy")
+age = np.load(dataPath + "trainAge.npy")
 # array of size (# of subjects, 1) with age of all training subjects
-allVolumes = np.load(dataPath + "trainImages_N1000.npy")
+allVolumes = np.load(dataPath + "trainImages.npy")
 # 4D array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3)
 # with images of all training subjects
 
