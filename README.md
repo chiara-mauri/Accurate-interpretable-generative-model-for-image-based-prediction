@@ -8,8 +8,9 @@ The code assumes that training data are provided in the following format:
 
 Validation and testing data should be provided in the same way. 
 
-NOTE: the Matlab code is now faster than the Python version, but we will update that.
+NOTE: the Python code is now faster than the Matlab version, but it will be updated.
 
+## To cite 
 Please cite 
 
 
