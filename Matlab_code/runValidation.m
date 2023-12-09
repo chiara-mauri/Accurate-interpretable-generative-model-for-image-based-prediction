@@ -23,7 +23,7 @@ nLatentTot = numel(nLatentValues);
 
 %load validation data 
 
-load([dataPath,'age_uk_healthy_valid.mat']) %load age_healthy_valid
+load([dataPath,'validAge.mat']) %load age_healthy_valid
 %array of size (# of subjects, 1) with age of all validation subjects
 
 targetValid=age_healthy_valid;
@@ -40,7 +40,7 @@ stValidBasisFun=(validBasisFun-trainBasisFunMean)./trainBasisFunStd;
 
 %validation images
 
-load([dataPath,'T1_nonlin_uk_healthy_valid_down3.mat']) %load T1_nonlin_down3
+load([dataPath,'validImages.mat']) %load T1_nonlin_down3
 %load 4D array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3)
 % with images of all validation subjects
 
