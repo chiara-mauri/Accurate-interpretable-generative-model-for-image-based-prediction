@@ -27,7 +27,7 @@ beta = betaAll{latentIndex,1};
 %load test data 
 
 
-load([dataPath,'age_uk_healthy_test.mat']) %load age_healthy_test
+load([dataPath,'testAge.mat']) %load age_healthy_test
 %array of size (# of subjects, 1) with age of all test subjects
 
 
@@ -44,7 +44,7 @@ stTestBasisFun=(test_basis_fun-trainBasisFunMean)./trainBasisFunStd;
 
 %test images
 
-load([dataPath,'T1_nonlin_uk_healthy_test_down3.mat']) %load T1_nonlin_down3
+load([dataPath,'testImages.mat']) %load T1_nonlin_down3
 %load 4D array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3)
 % with images of all test subjects
 
