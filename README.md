@@ -55,7 +55,9 @@ The code assumes that training data are provided in the following format:
 - trainImages.npy is 4D numpy array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3) with images of all training subjects (nonlinearly registered to a common space).
 
 
-The code saves a pickle containing the model with all the specified number of latent variables
+The code saves a pickle containing the model with all the specified number of latent variables.
+
+NOTE: the Python code is now slower than the Matlab version, but it will be updated.
 
 ### Matlab
 You can train the model on your own data with the following command:
@@ -107,7 +109,7 @@ The code assumes that validation data are provided in the following format:
 - validAge.npy is a numpy array of size (# of subjects, 1) with age of all validation subjects;
 - validImages.npy is 4D numpy array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3) with images of all validation subjects (nonlinearly registered to a common space).
 
-the code displays the test metrics on the validation set for all the specified number of latent variables, and save the corresponding information in a pickle file. This can be used to select the optimal number of latent variables.
+The code displays the test metrics on the validation set for all the specified number of latent variables, and save the corresponding information in a pickle file. This can be used to select the optimal number of latent variables.
 
 We are now ready for the final evaluation of the model on a separate test set, using the optimal number of latent variables that we selected. This can be done with:
 
@@ -156,7 +158,7 @@ The code assumes that validation data are provided in the following format:
 - validAge.npy is a numpy array of size (# of subjects, 1) with age of all validation subjects;
 - validImages.npy is 4D numpy array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3) with images of all validation subjects (nonlinearly registered to a common space).
 
-the code displays the test metrics on the validation set for all the specified number of latent variables, and save the corresponding information in a .mat file. This can be used to select the optimal number of latent variables.
+The code displays the test metrics on the validation set for all the specified number of latent variables, and save the corresponding information in a .mat file. This can be used to select the optimal number of latent variables.
 
 We are now ready for the final evaluation of the model on a separate test set, using the optimal number of latent variables that we selected. This can be done with:
 
@@ -189,7 +191,6 @@ The code assumes that test data are provided in the following format:
 The code displays the metrics on the test set with the final model and save the corresponding information in a .mat file.
 
 
-NOTE: the Python code is now slower than the Matlab version, but it will be updated.
 
 ## To cite 
 Please cite:
