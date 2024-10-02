@@ -18,7 +18,6 @@ https://arxiv.org/pdf/2306.11107.pdf
 
 ```
 conda create -n gen_env python=3.8 scipy nibabel matplotlib hdf5storage scikit-learn -c anaconda -c conda-forge
-
 ```
 
 
@@ -58,7 +57,7 @@ The code assumes that training data are provided in the following format:
 
 The code saves a pickle containing the model with all the specified number of latent variables
 
-### Matlab:
+### Matlab
 You can train the model on your own data with the following command:
 ```
 matlab -batch "runTraining(< LatentValues >,'dataPath',< /path/to/training/data >,'savePath',< /path/to/save/model >,'nameSavedModel',< nameOfSavedModel >,'maskThreshold',< threshold_value >,'showFigures',< boolean_for_show_figures >)"
@@ -163,13 +162,11 @@ We are now ready for the final evaluation of the model on a separate test set, u
 
 ```
 matlab -batch "runTest(< OptimalNumberOfLatentVar >,'dataPath',< /path/to/test/data >,'savePath',< /path/to/save/results >,'modelPath',< /path/to/saved/model >,'nameSavedModel',< nameOfSavedModel >)"
-
 ```
 or from the GUI:
 
 ```
 runTest(< OptimalNumberOfLatentVar >,'dataPath',< /path/to/test/data >,'savePath',< /path/to/save/results >,'modelPath',< /path/to/saved/model >,'nameSavedModel',< nameOfSavedModel >)
-
 ```
 
 
