@@ -125,7 +125,7 @@ With optional parameters:
 - -mp or --modelPath specifies the path where the trained model is saved, default="."
 - -n or --nameSavedModel specifies the name of the pickle file we saved after training, containing the model with all the specified number of latent variables, default="trainedModel.pkl"
 - -dp or --dataPath specifies the path to test data, default=".", See below for requirements on the data format
-
+- -sp or --savePath specifies the path where the test results are saved, default="."
 
 The code assumes that test data are provided in the following format: 
 - testAge.npy is a numpy array of size (# of subjects, 1) with age of all test subjects;
