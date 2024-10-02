@@ -23,9 +23,9 @@ parser = argparse.ArgumentParser(description="Validate the model",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 
-parser.add_argument("-mp","--modelPath", help="path where the trained model is saved", default="./")
+parser.add_argument("-mp","--modelPath", help="path where the trained model is saved", default=".")
 parser.add_argument("-n","--nameSavedModel", help="name of the saved model",default="trainedModel.pkl")
-parser.add_argument("-dp","--dataPath", help="path to validation data", default="./")
+parser.add_argument("-dp","--dataPath", help="path to validation data", default=".")
 
 
 
@@ -41,7 +41,7 @@ dataPath = config['dataPath']
 
 #load trained model
 
-modelPklFile = modelPath + nameSavedModel   
+modelPklFile = modelPath + '/' + nameSavedModel   
 with open(modelPklFile, 'rb') as file:  
     model = pickle.load(file)
     
@@ -58,9 +58,9 @@ nLatentValues = model["nLatentValues"]
 
 #load validation data
 
-age = np.load(dataPath + 'validAge.npy')
+age = np.load(dataPath + '/validAge.npy')
 # array of size (# of subjects, 1) with age of all validation subjects
-allVolumes = np.load( dataPath + 'validImages.npy')
+allVolumes = np.load( dataPath + '/validImages.npy')
 # 4D array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3)
 # with images of all validation subjects
 
@@ -123,8 +123,8 @@ validResults = {
 
 #save test results
 
-validResultsPath = './'
-validPklFile = validResultsPath + "validationResults.pkl"  
+validResultsPath = '.'
+validPklFile = validResultsPath + '/' + "validationResults.pkl"  
 
 with open(validPklFile, 'wb') as file:  
     pickle.dump(validResults, file)

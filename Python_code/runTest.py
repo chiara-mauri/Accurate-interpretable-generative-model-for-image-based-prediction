@@ -17,9 +17,9 @@ parser = argparse.ArgumentParser(description="Test the model",
                                  formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
 
-parser.add_argument("-mp","--modelPath", help="path where the trained model is saved", default="./")
+parser.add_argument("-mp","--modelPath", help="path where the trained model is saved", default=".")
 parser.add_argument("-n","--nameSavedModel", help="name of the saved model",default="trainedModel.pkl")
-parser.add_argument("-dp","--dataPath", help="path to test data", default="./")
+parser.add_argument("-dp","--dataPath", help="path to test data", default=".")
 parser.add_argument("-nLatentVars", required =  True, help="n. of latent variables to use for testing", type = int)
 
 
@@ -36,7 +36,7 @@ nLatentVars = config['nLatentVars']
 
 #load trained model
 
-modelPklFile = modelPath + nameSavedModel 
+modelPklFile = modelPath + '/' + nameSavedModel 
 with open(modelPklFile, 'rb') as file:  
     model = pickle.load(file)
     
@@ -58,9 +58,9 @@ beta = betaAll[latentIndex]
 
 #load test data
 
-age = np.load(dataPath + 'testAge.npy')
+age = np.load(dataPath + '/testAge.npy')
 # array of size (# of subjects, 1) with age of all test subjects
-allVolumes = np.load( dataPath + 'testImages.npy')
+allVolumes = np.load( dataPath + '/testImages.npy')
 # 4D array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3)
 # with images of all test subjects
 
@@ -100,8 +100,8 @@ testResults = {
 
 #save test results
 
-testResultsPath = './'
-testPklFile = testResultsPath + "testResults.pkl"  
+testResultsPath = '.'
+testPklFile = testResultsPath + '/' + "testResults.pkl"  
 
 with open(testPklFile, 'wb') as file:  
     pickle.dump(testResults, file)

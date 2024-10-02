@@ -22,11 +22,12 @@ def list_of_ints(arg):
     return list(map(int, arg.split(',')))
 
 #parser.add_argument("-nLatentValues", required =  True, nargs="+", help="list with number of latent variables to try, e.g. -nLatentValues 20,50,100")
-parser.add_argument("-nLatentValues", required =  True, type=list_of_ints, help="list of number of latent variables to try, e.g. -nLatentValues 20,50,100")
-parser.add_argument("-sp","--savePath", help="path where the trained model is saved", default="./")
+parser.add_argument("-nLat","--nLatentValues", required =  True, type=list_of_ints, help="list of number of latent variables to try, e.g. -nLatentValues 20,50,100")
+parser.add_argument("-sp","--savePath", help="path where the trained model is saved", default=".")
 parser.add_argument("-n","--nameSavedModel", help="name given to trained model",default="trainedModel")
-parser.add_argument("-dp","--dataPath", help="path to data", default="./")
+parser.add_argument("-dp","--dataPath", help="path to data", default=".")
 parser.add_argument("-th","--maskThreshold", type=float ,help="threshold for data mask", default=0.01)
+parser.add_argument("-fig","--showFigures", type=bool ,help="Show figures", default=True)
 
 
 args = parser.parse_args()
@@ -38,15 +39,14 @@ saveModelPath = config['savePath']
 nameSavedModel = config['nameSavedModel']
 dataPath = config['dataPath']
 maskThreshold = config['maskThreshold']
+showFigures = config['showFigures']
 
-
-showFigures = True
 
 #load training data
 
-age = np.load(dataPath + "trainAge.npy")
+age = np.load(dataPath + "/trainAge.npy")
 # array of size (# of subjects, 1) with age of all training subjects
-allVolumes = np.load(dataPath + "trainImages.npy")
+allVolumes = np.load(dataPath + "/trainImages.npy")
 # 4D array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3)
 # with images of all training subjects
 
@@ -73,21 +73,26 @@ avgVolScaled=avgVol/np.max(avgVol)
 indecesMask = (avgVolScaled>maskThreshold)
         
 if showFigures:
-    slice1 = avgVol[:,:,30]
+    shape = np.shape(avgVol)
+    sliceToShow = int(np.round(shape[2]/2))
+    slice1 = avgVol[:,:,sliceToShow]
     plt.imshow(slice1, cmap='gray')
     plt.colorbar()
+    plt.title("Average volume")
     plt.show()
 
-    slice2 = avgVolScaled[:,:,30]
+    slice2 = avgVolScaled[:,:,sliceToShow]
     plt.imshow(slice2, cmap='gray')
     plt.colorbar()
+    plt.title("Scaled average volume")
     plt.show()
 
     mask = np.zeros(np.shape(avgVol))
     mask[indecesMask] = 1
-    slice3 = mask[:,:,30]
+    slice3 = mask[:,:,sliceToShow]
     plt.imshow(slice3, cmap='gray')
     plt.colorbar()
+    plt.title("Mask")
     plt.show()
 #%%
 
@@ -140,16 +145,16 @@ W_original = np.concatenate((W_original_0, W_original_offset),axis=1)
 #%%
 if showFigures:
     #target weights
-    sliceIndex = 30
+    sliceToShow = int(np.round(shape[2]/2))
     weights3D = np.zeros(np.shape(avgVol))
     weights3D[indecesMask] = W_original[:,0]
-    sliceW = weights3D[:,:,sliceIndex]
+    sliceW = weights3D[:,:,sliceToShow]
     alphas = np.abs(sliceW)
     alphas = alphas/np.max(alphas)
-    template = avgVol[:,:,sliceIndex]
+    template = avgVol[:,:,sliceToShow]
     alphasTemplate = np.zeros(np.shape(avgVol))
     alphasTemplate[indecesMask] = 0.5
-    plt.imshow(template, alpha = alphasTemplate[:,:,sliceIndex], cmap='gray')
+    plt.imshow(template, alpha = alphasTemplate[:,:,sliceToShow], cmap='gray')
     plt.imshow(sliceW, alpha = alphas)
     colorbar = plt.colorbar()
     #plt.colorbar.set_alpha(0.5)
@@ -159,7 +164,7 @@ if showFigures:
     #offset
     offset3D = np.zeros(np.shape(avgVol))
     offset3D[indecesMask] = W_original[:,-1]
-    slice_offset = offset3D[:,:,sliceIndex]
+    slice_offset = offset3D[:,:,sliceToShow]
     plt.imshow(slice_offset,cmap='gray')
     colorbar = plt.colorbar()
     #plt.colorbar.set_alpha(0.5)
@@ -186,7 +191,7 @@ model = {
 
  
 #save trained model
-modelPklFile = saveModelPath + nameSavedModel + ".pkl"  
+modelPklFile = saveModelPath + "/" + nameSavedModel + ".pkl"  
 
 with open(modelPklFile, 'wb') as file:  
     pickle.dump(model, file)
