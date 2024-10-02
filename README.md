@@ -14,17 +14,17 @@ This repository contains both the Matlab and the Python version of the code.
 
 Training the model is performed by:
 
-python runTraining.py -nLatentValues <LatentValues>
+python runTraining.py -nLatentValues < LatentValues >
 
 where 
 
--LatentValues contains all the values for the number of latent variables that you want to try. E.g. -nLatentValues 20,50,100
+- -LatentValues contains all the values for the number of latent variables that you want to try. E.g. -nLatentValues 20,50,100
 
 Optional parameters:
-- sp
-- n
-- dp
-- th
+- -sp
+- -n
+- -dp
+- -th
 
 
 The code assumes that training data are provided in the following format: 
