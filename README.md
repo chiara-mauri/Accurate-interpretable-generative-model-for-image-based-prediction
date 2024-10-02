@@ -31,7 +31,7 @@ conda create -n gen_env python=3.8 scipy nibabel matplotlib hdf5storage  -c anac
 
 ## Training
 
-## Python:
+### Python:
 You can train the model on your own data with the following command:
 
 
@@ -55,7 +55,7 @@ The code assumes that training data are provided in the following format:
 - trainAge.mat (for Matlab) or trainAge.npy (for Python) is an array of size (# of subjects, 1) with age of all training subjects;
 - trainImages.mat (for Matlab) or trainImages.npy (for Python) is 4D array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3) with images of all training subjects (nonlinearly registered to a common space).
 
-## Matlab:
+### Matlab:
 
 ## Validation and testing
 
