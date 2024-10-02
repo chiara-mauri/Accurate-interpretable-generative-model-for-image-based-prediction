@@ -31,7 +31,6 @@ parser.add_argument("-dp","--dataPath", help="path to validation data", default=
 
 args = parser.parse_args()
 config = vars(args)
-print(config)
 
 modelPath = config['modelPath']
 nameSavedModel = config['nameSavedModel']

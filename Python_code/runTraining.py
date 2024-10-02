@@ -27,12 +27,12 @@ parser.add_argument("-sp","--savePath", help="path where the trained model is sa
 parser.add_argument("-n","--nameSavedModel", help="name given to trained model",default="trainedModel")
 parser.add_argument("-dp","--dataPath", help="path to data", default=".")
 parser.add_argument("-th","--maskThreshold", type=float ,help="threshold for data mask", default=0.01)
-parser.add_argument("-fig","--showFigures", type=bool ,help="Show figures", default=True)
+parser.add_argument("-fig","--showFigures", action='store_true' ,help="Show figures")
 
 
 args = parser.parse_args()
 config = vars(args)
-print(config)
+
 
 nLatentValues = config['nLatentValues']
 saveModelPath = config['savePath']

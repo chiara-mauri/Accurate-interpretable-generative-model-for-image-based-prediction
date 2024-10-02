@@ -20,18 +20,17 @@ parser = argparse.ArgumentParser(description="Test the model",
 parser.add_argument("-mp","--modelPath", help="path where the trained model is saved", default=".")
 parser.add_argument("-n","--nameSavedModel", help="name of the saved model",default="trainedModel.pkl")
 parser.add_argument("-dp","--dataPath", help="path to test data", default=".")
-parser.add_argument("-nLatentVars", required =  True, help="n. of latent variables to use for testing", type = int)
+parser.add_argument("-nLat","--nLatent", required =  True, help="n. of latent variables to use for testing", type = int)
 
 
 
 args = parser.parse_args()
 config = vars(args)
-print(config)
 
 modelPath = config['modelPath']
 nameSavedModel = config['nameSavedModel']
 dataPath = config['dataPath']
-nLatentVars = config['nLatentVars']
+nLatentVars = config['nLatent']
 
 
 #load trained model
