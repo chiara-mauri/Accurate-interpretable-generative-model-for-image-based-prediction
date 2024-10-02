@@ -1,20 +1,36 @@
-clear all, close all
+function runTraining(varargin)
+
+p = inputParser;
+addRequired(p,'nLatentValues',@(x) isnumeric(x) && isvector(x));
+addParameter(p,'dataPath','.',@(x) ischar(x) || isstring(x));
+addParameter(p,'savePath','.',@(x) ischar(x) || isstring(x));
+addParameter(p,'nameSavedModel','trainedModel',@(x) ischar(x) || isstring(x));
+addParameter(p,'maskThreshold',0.01, @(x) isnumeric(x));
+addParameter(p,'showFigures', true, @(x) islogical(x));
 
 
-dataPath = './';
-showFigures = 1;
 
-%select number of latent variables to try
-nLatentValues = [ 0 50 100 200];
-%nLatentValues = [100];
+
+
+
+parse(p, varargin{:});
+nLatentValues = p.Results.nLatentValues;
+dataPath = p.Results.dataPath;
+saveModelPath = p.Results.savePath;
+nameSavedModel = p.Results.nameSavedModel;
+maskThreshold = p.Results.maskThreshold;
+showFigures = p.Results.showFigures;
+
+if ~exist(saveModelPath, 'dir')
+    % If it does not exist, create the folder
+    mkdir(saveModelPath);
+end
+
 nLatentTot = numel(nLatentValues); 
-
-
-
 
 %load target and covariates
 
-load([dataPath,'trainAge.mat']) %load age
+load([dataPath,'/trainAge.mat']) %load age
 %array of size (# of subjects, 1) with age of all training subjects
 
 targetTrain = age;
@@ -34,7 +50,7 @@ trainBasisFun = (trainBasisFunInit-trainBasisFunMean)./trainBasisFunStd;
 
 % training images
 
-load([dataPath,'trainImages.mat']) %load im_healthy_train
+load([dataPath,'/trainImages.mat']) %load im_healthy_train
 %load 4D array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3)
 % with images of all training subjects
 
@@ -43,24 +59,30 @@ allVolumes = im_healthy_train;
 clear im_healthy_train
 
 %compute mask
-maskThreshold = 0.01; %change this to customize mask of voxels
 avgVol = squeeze(mean(allVolumes,1));
 avgVolScaled=avgVol/max(avgVol(:));
 indecesMask = find(avgVolScaled>maskThreshold)';
 
-slice1 = avgVol(:,:,30);
-figure, imagesc(slice1), colormap gray, colorbar
-axis equal
-
-slice2 = avgVolScaled(:,:,30);
-figure, imagesc(slice2), colormap gray, colorbar
-axis equal
-
-mask = zeros(size(avgVol));
-mask(indecesMask) = 1;
-slice3 = mask(:,:,30);
-figure, imagesc(slice3), colormap gray, colorbar
-axis equal
+if showFigures
+    shape = size(avgVol);
+    sliceToShow = round(shape(3)/2);
+    slice1 = avgVol(:,:,sliceToShow);
+    figure, imagesc(imrotate(slice1,90)), colormap gray, colorbar
+    axis equal
+    title('average volume')
+    
+    slice2 = avgVolScaled(:,:,sliceToShow);
+    figure, imagesc(imrotate(slice2,90)), colormap gray, colorbar
+    axis equal
+    title('scaled average volume')
+    
+    mask = zeros(size(avgVol));
+    mask(indecesMask) = 1;
+    slice3 = mask(:,:,sliceToShow);
+    figure, imagesc(imrotate(slice3,90)), colormap gray, colorbar
+    axis equal
+    title('mask')
+end
         
 
 trainImagesInit = zeros(Ntrain,numel(indecesMask));
@@ -88,7 +110,8 @@ betaAll = cell(nLatentTot,1);
 timeTrainingAll = zeros(nLatentTot,1);
 logMLVectorAll = cell(nLatentTot,1);
 
-
+delete(gcp('nocreate'))
+parpool(16);
 %loop over latent variables
 for n = 1:nLatentTot
 
@@ -99,6 +122,7 @@ for n = 1:nLatentTot
     nItMax = 500;
     nItMin = 3;
 
+    
     %model training
     [W, V, beta, timeTraining, logMLVector, nIterations] = trainingModel(trainImages, ...
         trainBasisFun, nLatentVars, costTol, nItMax, nItMin);
@@ -136,9 +160,12 @@ if showFigures
     offset3D = zeros(size(avgVol));
     offset3D(indecesMask)=  W_original_offset;
         
-    sliceIndex = 26;
+   
+    shape = size(avgVol);
+    sliceToShow = round(shape(3)/2)-4;
     figure,
-    imagesc(imrotate(squeeze(offset3D(:,:,sliceIndex)),90)), colormap gray, 
+    imagesc(imrotate(squeeze(offset3D(:,:,sliceToShow)),90)), colormap gray, 
+    title('Offset')
     colorbar('FontSize',13)
     axis equal
     axis off
@@ -150,11 +177,11 @@ if showFigures
 
     targetWeights3D = zeros(size(avgVol));
     targetWeights3D(indecesMask) = W_original(:,1);
-    template = squeeze(avgVol(:,:,sliceIndex));
+    template = squeeze(avgVol(:,:,sliceToShow));
     
     transparencyMask = zeros(size(avgVol));
     transparencyMask(indecesMask)=0.5;
-    alpha_template=squeeze(transparencyMask(:,:,sliceIndex));
+    alpha_template=squeeze(transparencyMask(:,:,sliceToShow));
     
     
     figure;
@@ -163,12 +190,13 @@ if showFigures
     axis equal
     axis off
     colormap(ax1,'gray');
-    weights=squeeze(targetWeights3D(:,:,sliceIndex)); 
+    weights=squeeze(targetWeights3D(:,:,sliceToShow)); 
     ax2 = axes;
     alphamap = abs(weights);
     %max(alphamap(:))
     alphamap = alphamap./max(alphamap(:));
     imagesc(ax2,imrotate(weights,90),'alphadata',imrotate(alphamap,90));
+    title('Target weights')
     axis equal
     axis off
     %caxis([min_2d_for_axis   max_2d_for_axis]); 
@@ -220,9 +248,11 @@ model.imTrainMean=imTrainMean;
 model.imTrainStd=imTrainStd;
 
 
-saveModelPath='./';
-nameSavedModel = 'trainedModel';
-save([saveModelPath, nameSavedModel, '.mat'],'model','-v7.3')
+
+
+save([saveModelPath, '/', nameSavedModel, '.mat'],'model','-v7.3')
+
+return
 
 
 

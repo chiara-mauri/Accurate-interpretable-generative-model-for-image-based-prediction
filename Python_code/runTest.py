@@ -9,6 +9,7 @@ import numpy as np
 import hdf5storage
 import pickle
 import argparse
+import os
 
 from testModel import *
 
@@ -21,7 +22,7 @@ parser.add_argument("-mp","--modelPath", help="path where the trained model is s
 parser.add_argument("-n","--nameSavedModel", help="name of the saved model",default="trainedModel.pkl")
 parser.add_argument("-dp","--dataPath", help="path to test data", default=".")
 parser.add_argument("-nLat","--nLatent", required =  True, help="n. of latent variables to use for testing", type = int)
-
+parser.add_argument("-sp","--savePath", help="path where the test results are saved", default=".")
 
 
 args = parser.parse_args()
@@ -31,6 +32,12 @@ modelPath = config['modelPath']
 nameSavedModel = config['nameSavedModel']
 dataPath = config['dataPath']
 nLatentVars = config['nLatent']
+savePath = config['savePath']
+
+
+if not os.path.exists(savePath):
+    os.mkdir(savePath)  
+
 
 
 #load trained model
@@ -99,8 +106,8 @@ testResults = {
 
 #save test results
 
-testResultsPath = '.'
-testPklFile = testResultsPath + '/' + "testResults.pkl"  
+
+testPklFile = savePath + '/' + "testResults.pkl"  
 
 with open(testPklFile, 'wb') as file:  
     pickle.dump(testResults, file)

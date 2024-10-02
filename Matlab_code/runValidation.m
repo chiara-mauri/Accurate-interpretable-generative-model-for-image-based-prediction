@@ -1,12 +1,28 @@
 %run validation
 
-dataPath = './';
-modelPath = './';
-savePath = './';
-nameSavedModel = 'trainedModel';
+function runValidation(varargin)
+
+p = inputParser;
+addParameter(p,'dataPath','.',@(x) ischar(x) || isstring(x));
+addParameter(p,'savePath','.',@(x) ischar(x) || isstring(x));
+addParameter(p,'modelPath','.',@(x) ischar(x) || isstring(x));
+addParameter(p,'nameSavedModel','trainedModel.mat',@(x) ischar(x) || isstring(x));
+
+
+
+parse(p, varargin{:});
+dataPath = p.Results.dataPath;
+savePath = p.Results.savePath;
+modelPath = p.Results.modelPath;
+nameSavedModel = p.Results.nameSavedModel;
+
+if ~exist(savePath, 'dir')
+    % If it does not exist, create the folder
+    mkdir(savePath);
+end
 
 %load saved trained model
-load([modelPath,nameSavedModel])
+load([modelPath,'/',nameSavedModel])
 
 
 W = double(model.W);
@@ -23,13 +39,13 @@ nLatentTot = numel(nLatentValues);
 
 %load validation data 
 
-load([dataPath,'validAge.mat']) %load age_healthy_valid
+load([dataPath,'/validAge.mat']) %load age_healthy_valid
 %array of size (# of subjects, 1) with age of all validation subjects
 
-targetValid=age_healthy_valid;
+targetValid=validAge;
 nValid=size(targetValid,1);
 covariatesValid=[];
-clear('age_healthy_valid')
+clear('validAge')
 
 
 %validation basis functions
@@ -40,12 +56,13 @@ stValidBasisFun=(validBasisFun-trainBasisFunMean)./trainBasisFunStd;
 
 %validation images
 
-load([dataPath,'validImages.mat']) %load T1_nonlin_down3
+load([dataPath,'/validImages.mat']) %load T1_nonlin_down3
 %load 4D array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3)
 % with images of all validation subjects
 
-allVolumes = T1_nonlin_down3;
-clear T1_nonlin_down3
+
+allVolumes = validImages;
+clear validImages
 
 imValid = zeros(nValid,numel(indecesMask));
 for nSubj = 1:nValid
@@ -102,6 +119,6 @@ predictions=cell(nLatentTot,1);
    validResults.predictions=predictions;
 
 
-   save([savePath,'validResults'],'validResults','-v7.3')
+   save([savePath,'/validResults'],'validResults','-v7.3')
 
-   
+   return

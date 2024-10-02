@@ -12,6 +12,7 @@ import hdf5storage
 import pickle
 import argparse
 import matplotlib.pyplot as plt
+import os
 
 from trainModel import *
 
@@ -41,6 +42,8 @@ dataPath = config['dataPath']
 maskThreshold = config['maskThreshold']
 showFigures = config['showFigures']
 
+if not os.path.exists(saveModelPath):
+    os.mkdir(saveModelPath)  
 
 #load training data
 
