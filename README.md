@@ -3,10 +3,10 @@
 In this repository, we present a model for image-based single-subject prediction that is inherently interpretable. We provide both the Matlab and the Python version of the code. The repository does not contain a pre-trained model, but it can be used to train a model on your own data. Details about the model can be found in:
 
 
-Accurate and explainable image-based prediction using a lightweight generative model. Mauri, C., Cerri, S., Puonti, O., M¨uhlau, M. and Van Leemput, K., 2022. In ‘International Conference on Medical Image Computing and
-Computer-Assisted Intervention’, Springer, pp. 448–458.
+**Accurate and explainable image-based prediction using a lightweight generative model**. Mauri, C., Cerri, S., Puonti, O., Mühlau, M. and Van Leemput, K., 2022. In ‘International Conference on Medical Image Computing and
+Computer-Assisted Intervention’, Springer, pp. 448–458. https://link.springer.com/chapter/10.1007/978-3-031-16452-1_43
 
-A Lightweight Causal Model for Interpretable Subject-level Prediction. Mauri, C., Cerri, S., Puonti, O., Mühlau, M. and Van Leemput, K., 2023. arXiv preprint arXiv:2306.11107
+**A Lightweight Causal Model for Interpretable Subject-level Prediction**. Mauri, C., Cerri, S., Puonti, O., Mühlau, M. and Van Leemput, K., 2023. arXiv preprint arXiv:2306.11107
 https://arxiv.org/pdf/2306.11107.pdf
 
 
@@ -35,9 +35,9 @@ conda create -n gen_env python=3.8 scipy nibabel matplotlib hdf5storage  -c anac
 You can train the model on your own data with the following command:
 
 
-
+```
 python runTraining.py -nLat < LatentValues > -dp < /path/to/data > -fig True
-
+```
 
 where 
 
@@ -68,7 +68,7 @@ NOTE: the Python code is now slower than the Matlab version, but it will be upda
 ## To cite 
 Please cite:
 
-A Lightweight Causal Model for Interpretable Subject-level Prediction. Mauri, C., Cerri, S., Puonti, O., Mühlau, M. and Van Leemput, K., 2023. arXiv preprint arXiv:2306.11107
+**A Lightweight Causal Model for Interpretable Subject-level Prediction**. Mauri, C., Cerri, S., Puonti, O., Mühlau, M. and Van Leemput, K., 2023. arXiv preprint arXiv:2306.11107
 https://arxiv.org/pdf/2306.11107.pdf
 
 
