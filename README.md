@@ -59,9 +59,35 @@ The code assumes that training data are provided in the following format:
 The code saves a pickle containing the model with all the specified number of latent variables
 
 ### Matlab:
+You can train the model on your own data with the following command:
+```
+matlab -batch "runTraining(< LatentValues >,'dataPath',< /path/to/training/data >,'savePath',< /path/to/save/model >,'nameSavedModel',< nameOfSavedModel >,'maskThreshold',< threshold_value >,'showFigures',< boolean_for_show_figures >)"
+```
 
-- trainAge.mat (for Matlab) or trainAge.npy (for Python) is an array of size (# of subjects, 1) with age of all training subjects;
-- trainImages.mat (for Matlab) or trainImages.npy (for Python) is 4D array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3) with images of all training subjects (nonlinearly registered to a common space).
+Or from the GUI:
+```
+runTraining(< LatentValues >,'dataPath',< /path/to/training/data >,'savePath',< /path/to/save/model >,'nameSavedModel',< nameOfSavedModel >,'maskThreshold',< threshold_value >,'showFigures',< boolean_to_show_figures >)
+```
+where 
+
+- < LatentValues > specifies all the values for the number of latent variables that you want to try. E.g. [20,50,70,100]
+
+Optional parameters:
+
+- < /path/to/save/model > specifies the path where the trained model is saved, default='.'
+- < nameOfSavedModel > specifies the name given to trained model, default='trainedModel'
+- < /path/to/training/data > specifies the folder containing the training data, default='.'. See below for requirements on the data format
+- < threshold_value > specifies the threshold to use for masking out the background before trianing the model. The threshold is applied to the average volume scaled by its maximum. default=0.01
+- < boolean_to_show_figures > specifies if figures are displayed when running, default true
+
+
+
+The code assumes that training data are provided in the following format: 
+- trainAge.mat is an array of size (# of subjects, 1) with age of all training subjects;
+- trainImages.mat is 4D array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3) with images of all training subjects (nonlinearly registered to a common space).
+
+The code saves a .mat file containing the model with all the specified number of latent variables
+
 
 ## Validation and testing
 
@@ -108,6 +134,62 @@ The code displays the metrics on the test set with the final model and save the 
 
 ### Matlab
 
+We can apply the models we previously trained with different numbers of latent variables to a validation set, to select the optimal number of latent variables. This can be done with:
+
+```
+matlab -batch "runValidation('dataPath',< /path/to/validation/data >,'savePath',< /path/to/save/results >,'modelPath',< /path/to/saved/model >,'nameSavedModel',< nameOfSavedModel >)"
+```
+
+or from the GUI:
+
+```
+runValidation('dataPath',< /path/to/validation/data >,'savePath',< /path/to/save/results >,'modelPath',< /path/to/saved/model >,'nameSavedModel',< nameOfSavedModel >)
+```
+
+With optional parameters:
+
+- < /path/to/save/results > specifies the path where validation results are saved, default='.'
+- < /path/to/saved/model > specifies the path where the trained model is saved, default='.'
+- < nameOfSavedModel > specifies the name of the .mat file we saved after training, containing the model with all the specified number of latent variables, default='trainedModel.mat'
+- < /path/to/validation/data > specifies the path to validation data, default='.', see below for requirements on the data format
+
+The code assumes that validation data are provided in the following format: 
+- validAge.npy is a numpy array of size (# of subjects, 1) with age of all validation subjects;
+- validImages.npy is 4D numpy array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3) with images of all validation subjects (nonlinearly registered to a common space).
+
+the code displays the test metrics on the validation set for all the specified number of latent variables, and save the corresponding information in a .mat file. This can be used to select the optimal number of latent variables.
+
+We are now ready for the final evaluation of the model on a separate test set, using the optimal number of latent variables that we selected. This can be done with:
+
+```
+matlab -batch "runTest(< OptimalNumberOfLatentVar >,'dataPath',< /path/to/test/data >,'savePath',< /path/to/save/results >,'modelPath',< /path/to/saved/model >,'nameSavedModel',< nameOfSavedModel >)"
+
+```
+or from the GUI:
+
+```
+runTest(< OptimalNumberOfLatentVar >,'dataPath',< /path/to/test/data >,'savePath',< /path/to/save/results >,'modelPath',< /path/to/saved/model >,'nameSavedModel',< nameOfSavedModel >)
+
+```
+
+
+where:
+
+- < OptimalNumberOfLatentVar > specifies the number of latent variables that we want to use for testing (it should be the optimal value selected on the validation set)
+
+With optional parameters:
+
+- < /path/to/save/results > specifies the path where test results are saved, default='.'
+- < /path/to/saved/model > specifies the path where the trained model is saved, default='.'
+- < nameOfSavedModel > specifies the name of the .mat file we saved after training, containing the model with all the specified number of latent variables, default='trainedModel.mat'
+- < /path/to/test/data > specifies the path to test data, default='.', see below for requirements on the data format
+
+
+The code assumes that test data are provided in the following format: 
+- testAge.mat is an array of size (# of subjects, 1) with age of all test subjects;
+- testImages.mat is 4D array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3) with images of all test subjects (nonlinearly registered to a common space).
+
+The code displays the metrics on the test set with the final model and save the corresponding information in a .mat file.
 
 
 NOTE: the Python code is now slower than the Matlab version, but it will be updated.
