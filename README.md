@@ -14,7 +14,7 @@ https://arxiv.org/pdf/2306.11107.pdf
 
 1. Clone this repository
 
-2. For Python code, create a virtual environment (e.g. with conda) and install the required packages:
+2. For the Python code, create a virtual environment (e.g. with conda) and install the required packages:
 
 ```
 conda create -n gen_env python=3.8 scipy nibabel matplotlib hdf5storage scikit-learn -c anaconda -c conda-forge
@@ -34,7 +34,7 @@ You can train the model on your own data with the following command:
 
 
 ```
-python runTraining.py -nLat < LatentValues > [-sp </path/to/save/model> -n <nameOfSavedModel> -dp </path/to/training/data> -th <threshold_value> -fig ]
+python ./Python_code/runTraining.py -nLat <LatentValues> [-sp </path/to/save/model> -n <nameOfSavedModel> -dp </path/to/training/data> -th <threshold_value> -fig ]
 ```
 
 where:
@@ -59,11 +59,13 @@ NOTE: the Python code is now slower than the Matlab version, but it will be upda
 ### Matlab
 You can train the model on your own data with the following command:
 ```
+cd Matlab_code
 matlab -batch "runTraining(<LatentValues>,'dataPath',</path/to/training/data>,'savePath',</path/to/save/model>,'nameSavedModel',<nameOfSavedModel>,'maskThreshold',<threshold_value>,'showFigures',<boolean_to_show_figures>)"
 ```
 
 Or from the GUI:
 ```
+cd Matlab_code
 runTraining(<LatentValues>,'dataPath',</path/to/training/data>,'savePath',</path/to/save/model>,'nameSavedModel',<nameOfSavedModel>,'maskThreshold',<threshold_value>,'showFigures',<boolean_to_show_figures>)
 ```
 where:
@@ -91,7 +93,7 @@ The code saves a .mat file containing the model with all the specified number of
 We can apply the models that we previously trained with different numbers of latent variables to a validation set, to select the optimal number of latent variables. This can be done with:
 
 ```
-python runValidation.py  [-mp </path/to/saved/model> -n <nameOfSavedModel> -dp </path/to/validation/data>]
+python ./Python_code/runValidation.py  [-mp </path/to/saved/model> -n <nameOfSavedModel> -dp </path/to/validation/data>]
 ```
 where:
 
@@ -108,7 +110,7 @@ The code displays the error metrics on the validation set for all the specified 
 We are now ready for the final evaluation of the model on a separate test set, using the optimal number of latent variables that we selected. This can be done with:
 
 ```
-python runTest.py -nLat <OptimalNumberOfLatentVar> [-mp </path/to/saved/model> -n <nameOfSavedModel> -dp </path/to/test/data> -sp </path/to/save/results>]
+python ./Python_code/runTest.py -nLat <OptimalNumberOfLatentVar> [-mp </path/to/saved/model> -n <nameOfSavedModel> -dp </path/to/test/data> -sp </path/to/save/results>]
 ```
 where:
 
@@ -129,13 +131,13 @@ The code displays the error metrics on the test set obtained with the final mode
 We can apply the models we previously trained with different numbers of latent variables to a validation set, to select the optimal number of latent variables. This can be done with:
 
 ```
-matlab -batch "runValidation('dataPath',</path/to/validation/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)"
+matlab -batch "./Matlab_code/runValidation('dataPath',</path/to/validation/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)"
 ```
 
 or from the GUI:
 
 ```
-runValidation('dataPath',</path/to/validation/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)
+./Matlab_code/runValidation('dataPath',</path/to/validation/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)
 ```
 
 where:
@@ -154,12 +156,12 @@ The code displays the error metrics on the validation set for all the specified 
 We are now ready for the final evaluation of the model on a separate test set, using the optimal number of latent variables that we selected. This can be done with:
 
 ```
-matlab -batch "runTest(<OptimalNumberOfLatentVar>,'dataPath',</path/to/test/data ,'savePath',< path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)"
+matlab -batch "./Matlab_code/runTest(<OptimalNumberOfLatentVar>,'dataPath',</path/to/test/data ,'savePath',< path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)"
 ```
 or from the GUI:
 
 ```
-runTest(<OptimalNumberOfLatentVar>,'dataPath',</path/to/test/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)
+./Matlab_code/runTest(<OptimalNumberOfLatentVar>,'dataPath',</path/to/test/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)
 ```
 
 
