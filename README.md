@@ -131,13 +131,15 @@ The code displays the error metrics on the test set obtained with the final mode
 We can apply the models we previously trained with different numbers of latent variables to a validation set, to select the optimal number of latent variables. This can be done with:
 
 ```
-matlab -batch "./Matlab_code/runValidation('dataPath',</path/to/validation/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)"
+cd Matlab_code
+matlab -batch "runValidation('dataPath',</path/to/validation/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)"
 ```
 
 or from the GUI:
 
 ```
-./Matlab_code/runValidation('dataPath',</path/to/validation/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)
+cd Matlab_code
+runValidation('dataPath',</path/to/validation/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)
 ```
 
 where:
@@ -156,12 +158,14 @@ The code displays the error metrics on the validation set for all the specified 
 We are now ready for the final evaluation of the model on a separate test set, using the optimal number of latent variables that we selected. This can be done with:
 
 ```
-matlab -batch "./Matlab_code/runTest(<OptimalNumberOfLatentVar>,'dataPath',</path/to/test/data ,'savePath',< path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)"
+cd Matlab_code
+matlab -batch "runTest(<OptimalNumberOfLatentVar>,'dataPath',</path/to/test/data ,'savePath',< path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)"
 ```
 or from the GUI:
 
 ```
-./Matlab_code/runTest(<OptimalNumberOfLatentVar>,'dataPath',</path/to/test/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)
+cd Matlab_code
+runTest(<OptimalNumberOfLatentVar>,'dataPath',</path/to/test/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)
 ```
 
 
