@@ -34,7 +34,7 @@ You can train the model on your own data with the following command:
 
 
 ```
-python runTraining.py -nLat < LatentValues > [-sp < /path/to/save/model > -n < nameOfSavedModel > -dp < /path/to/training/data > -th <threshold_value> -fig ]
+python runTraining.py -nLat < LatentValues > [-sp </path/to/save/model> -n <nameOfSavedModel> -dp </path/to/training/data> -th <threshold_value> -fig ]
 ```
 
 where 
@@ -59,21 +59,21 @@ NOTE: the Python code is now slower than the Matlab version, but it will be upda
 ### Matlab
 You can train the model on your own data with the following command:
 ```
-matlab -batch "runTraining(< LatentValues >,'dataPath',< /path/to/training/data >,'savePath',< /path/to/save/model >,'nameSavedModel',< nameOfSavedModel >,'maskThreshold',< threshold_value >,'showFigures',< boolean_for_show_figures >)"
+matlab -batch "runTraining(< LatentValues >,'dataPath',</path/to/training/data>,'savePath',</path/to/save/model>,'nameSavedModel',<nameOfSavedModel>,'maskThreshold',<threshold_value>,'showFigures',<boolean_to_show_figures>)"
 ```
 
 Or from the GUI:
 ```
-runTraining(< LatentValues >,'dataPath',< /path/to/training/data >,'savePath',< /path/to/save/model >,'nameSavedModel',< nameOfSavedModel >,'maskThreshold',< threshold_value >,'showFigures',< boolean_to_show_figures >)
+runTraining(<LatentValues>,'dataPath',</path/to/training/data>,'savePath',</path/to/save/model>,'nameSavedModel',<nameOfSavedModel>,'maskThreshold',<threshold_value>,'showFigures',<boolean_to_show_figures>)
 ```
 where 
 
 - ```<LatentValues>``` specifies all the values for the number of latent variables that you want to try. E.g. [20,50,70,100]
-- ```< /path/to/save/model >``` (optional) specifies the path where the trained model is saved, default='.'
-- ```< nameOfSavedModel >``` (optional) specifies the name given to trained model, default='trainedModel'
-- ```< /path/to/training/data >``` (optional) specifies the folder containing the training data, default='.'. See below for requirements on the data format
-- ```< threshold_value >``` (optional) specifies the threshold to use for masking out the background before trianing the model. The threshold is applied to the average volume scaled by its maximum. default=0.01
-- ``` < boolean_to_show_figures >``` (optional) specifies if figures are displayed when running, default=true
+- ```</path/to/save/model>``` (optional) specifies the path where the trained model is saved, default='.'
+- ```<nameOfSavedModel>``` (optional) specifies the name given to trained model, default='trainedModel'
+- ```</path/to/training/data>``` (optional) specifies the folder containing the training data, default='.'. See below for requirements on the data format
+- ```<threshold_value>``` (optional) specifies the threshold to use for masking out the background before trianing the model. The threshold is applied to the average volume scaled by its maximum. default=0.01
+- ``` <boolean_to_show_figures>``` (optional) specifies if figures are displayed when running, default=true
 
 
 
