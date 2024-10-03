@@ -68,7 +68,7 @@ runTraining(< LatentValues >,'dataPath',< /path/to/training/data >,'savePath',< 
 ```
 where 
 
-- ```< LatentValues >``` specifies all the values for the number of latent variables that you want to try. E.g. [20,50,70,100]
+- ```<LatentValues>``` specifies all the values for the number of latent variables that you want to try. E.g. [20,50,70,100]
 - ```< /path/to/save/model >``` (optional) specifies the path where the trained model is saved, default='.'
 - ```< nameOfSavedModel >``` (optional) specifies the name given to trained model, default='trainedModel'
 - ```< /path/to/training/data >``` (optional) specifies the folder containing the training data, default='.'. See below for requirements on the data format
