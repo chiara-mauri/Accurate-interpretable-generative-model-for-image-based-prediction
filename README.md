@@ -34,20 +34,17 @@ You can train the model on your own data with the following command:
 
 
 ```
-python runTraining.py -nLat < LatentValues > -dp < /path/to/training/data > -fig 
+python runTraining.py -nLat < LatentValues > [-sp < /path/to/save/model > -n < nameOfSavedModel > -dp < /path/to/training/data > -th <threshold_value> -fig ]
 ```
 
 where 
 
-- -nLat or --nLatentValues specifies all the values for the number of latent variables that you want to try. E.g. -nLat 20,50,70,100
-
-Optional parameters:
-
-- -sp or --savePath specifies the path where the trained model is saved, default="."
-- -n or --nameSavedModel specifies the name given to trained model, default="trainedModel"
-- -dp or --dataPath specifies tha folder containing the training data, default=".". See below for requirements on the data format
-- -th or --maskThreshold specifies the threshold to use for masking out the background before trianing the model. The threshold is applied to the average volume scaled by its maximum. default=0.01
-- -fig or --showFigures if specified, figures are displayed when running
+- ```-nLat``` or ```--nLatentValues``` specifies all the values for the number of latent variables that you want to try. E.g. -nLat 20,50,70,100
+- -sp or --savePath (optional) specifies the path where the trained model is saved, default="."
+- -n or --nameSavedModel (optional) specifies the name given to the trained model, default="trainedModel"
+- -dp or --dataPath (optional) specifies tha folder containing the training data, default=".", see below for requirements on the data format
+- -th or --maskThreshold (optional) specifies the threshold to use for masking out the background in images before trianing the model. The threshold is applied to the average volume scaled by its maximum. default=0.01
+- -fig or --showFigures (optional): to display figures 
 
 
 The code assumes that training data are provided in the following format: 
@@ -55,7 +52,7 @@ The code assumes that training data are provided in the following format:
 - trainImages.npy is 4D numpy array of size (# of subjects, image dimension 1, image dimension 2, image dimension 3) with images of all training subjects (nonlinearly registered to a common space).
 
 
-The code saves a pickle containing the model with all the specified number of latent variables.
+The code saves a pickle file containing the model with all the specified number of latent variables.
 
 NOTE: the Python code is now slower than the Matlab version, but it will be updated.
 
