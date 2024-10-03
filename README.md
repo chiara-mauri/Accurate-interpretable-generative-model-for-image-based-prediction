@@ -37,7 +37,7 @@ You can train the model on your own data with the following command:
 python runTraining.py -nLat < LatentValues > [-sp </path/to/save/model> -n <nameOfSavedModel> -dp </path/to/training/data> -th <threshold_value> -fig ]
 ```
 
-where 
+where:
 
 - ```-nLat``` or ```--nLatentValues``` specifies all the values for the number of latent variables that you want to try. E.g. -nLat 20,50,70,100
 - ```-sp``` or ```--savePath``` (optional) specifies the path where the trained model is saved, default="."
@@ -66,7 +66,7 @@ Or from the GUI:
 ```
 runTraining(<LatentValues>,'dataPath',</path/to/training/data>,'savePath',</path/to/save/model>,'nameSavedModel',<nameOfSavedModel>,'maskThreshold',<threshold_value>,'showFigures',<boolean_to_show_figures>)
 ```
-where 
+where:
 
 - ```<LatentValues>``` specifies all the values for the number of latent variables that you want to try. E.g. [20,50,70,100]
 - ```</path/to/save/model>``` (optional) specifies the path where the trained model is saved, default='.'
@@ -91,13 +91,13 @@ The code saves a .mat file containing the model with all the specified number of
 We can apply the models we previously trained with different numbers of latent variables to a validation set, to select the optimal number of latent variables. This can be done with:
 
 ```
-python runValidation.py  -dp < /path/to/validation/data > -n < nameSavedModel.pkl >
+python runValidation.py  [-mp </path/to/saved/model> -n <nameOfSavedModel> -dp </path/to/validation/data>]
 ```
-With optional parameters:
+where:
 
-- -mp or --modelPath specifies the path where the trained model is saved, default="."
-- -n or --nameSavedModel specifies the name of the pickle file we saved after training, containing the model with all the specified number of latent variables, default="trainedModel.pkl"
-- -dp or --dataPath specifies the path to validation data, default=".", see below for requirements on the data format
+- ```-mp``` or ```--modelPath``` (optional) specifies the path where the trained model is saved, default="."
+- ```-n``` or ```--nameSavedModel``` (optional) specifies the name of the pickle file we saved after training, containing the model with all the specified number of latent variables, default="trainedModel.pkl"
+- ```-dp``` or ```--dataPath``` (optional) specifies the path to validation data, default=".", see below for requirements on the data format
 
 The code assumes that validation data are provided in the following format: 
 - validAge.npy is a numpy array of size (# of subjects, 1) with age of all validation subjects;
@@ -108,18 +108,15 @@ The code displays the test metrics on the validation set for all the specified n
 We are now ready for the final evaluation of the model on a separate test set, using the optimal number of latent variables that we selected. This can be done with:
 
 ```
-python runTest.py -nLat < OptimalNumberOfLatentVar > -dp < /path/to/test/data > -n < nameSavedModel.pkl >
+python runTest.py -nLat <OptimalNumberOfLatentVar> [-mp </path/to/saved/model> -n <nameOfSavedModel> -dp </path/to/test/data> -sp </path/to/save/results> ]
 ```
 where:
 
-- -nLat or --nLatent specifies the number of latent variables that we want to use for testing (it should be the optimal value selected on the validation set)
-
-With optional parameters:
-
-- -mp or --modelPath specifies the path where the trained model is saved, default="."
-- -n or --nameSavedModel specifies the name of the pickle file we saved after training, containing the model with all the specified number of latent variables, default="trainedModel.pkl"
-- -dp or --dataPath specifies the path to test data, default=".", See below for requirements on the data format
-- -sp or --savePath specifies the path where the test results are saved, default="."
+- ```-nLat``` or ```--nLatent``` specifies the number of latent variables that we want to use for testing (it should be the optimal value selected on the validation set)
+- ```-mp``` or ```--modelPath``` (optional) specifies the path where the trained model is saved, default="."
+- ```-n``` or ```--nameSavedModel``` (optional) specifies the name of the pickle file we saved after training, containing the model with all the specified number of latent variables, default="trainedModel.pkl"
+- ```-dp``` or ```--dataPath``` (optional) specifies the path to test data, default=".", See below for requirements on the data format
+- ```-sp``` or ```--savePath``` (optional) specifies the path where the test results are saved, default="."
 
 The code assumes that test data are provided in the following format: 
 - testAge.npy is a numpy array of size (# of subjects, 1) with age of all test subjects;
@@ -132,21 +129,21 @@ The code displays the metrics on the test set with the final model and save the 
 We can apply the models we previously trained with different numbers of latent variables to a validation set, to select the optimal number of latent variables. This can be done with:
 
 ```
-matlab -batch "runValidation('dataPath',< /path/to/validation/data >,'savePath',< /path/to/save/results >,'modelPath',< /path/to/saved/model >,'nameSavedModel',< nameOfSavedModel >)"
+matlab -batch "runValidation('dataPath',</path/to/validation/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)"
 ```
 
 or from the GUI:
 
 ```
-runValidation('dataPath',< /path/to/validation/data >,'savePath',< /path/to/save/results >,'modelPath',< /path/to/saved/model >,'nameSavedModel',< nameOfSavedModel >)
+runValidation('dataPath',</path/to/validation/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)
 ```
 
-With optional parameters:
+where:
 
-- < /path/to/save/results > specifies the path where validation results are saved, default='.'
-- < /path/to/saved/model > specifies the path where the trained model is saved, default='.'
-- < nameOfSavedModel > specifies the name of the .mat file we saved after training, containing the model with all the specified number of latent variables, default='trainedModel.mat'
-- < /path/to/validation/data > specifies the path to validation data, default='.', see below for requirements on the data format
+- ```</path/to/save/results>``` (optional) specifies the path where validation results are saved, default='.'
+- ```</path/to/saved/model>``` (optional) specifies the path where the trained model is saved, default='.'
+- ```<nameOfSavedModel>``` (optional) specifies the name of the .mat file we saved after training, containing the model with all the specified number of latent variables, default='trainedModel.mat'
+- ```</path/to/validation/data>``` (optional) specifies the path to validation data, default='.', see below for requirements on the data format
 
 The code assumes that validation data are provided in the following format: 
 - validAge.npy is a numpy array of size (# of subjects, 1) with age of all validation subjects;
@@ -157,25 +154,22 @@ The code displays the test metrics on the validation set for all the specified n
 We are now ready for the final evaluation of the model on a separate test set, using the optimal number of latent variables that we selected. This can be done with:
 
 ```
-matlab -batch "runTest(< OptimalNumberOfLatentVar >,'dataPath',< /path/to/test/data >,'savePath',< /path/to/save/results >,'modelPath',< /path/to/saved/model >,'nameSavedModel',< nameOfSavedModel >)"
+matlab -batch "runTest(<OptimalNumberOfLatentVar>,'dataPath',</path/to/test/data ,'savePath',< path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)"
 ```
 or from the GUI:
 
 ```
-runTest(< OptimalNumberOfLatentVar >,'dataPath',< /path/to/test/data >,'savePath',< /path/to/save/results >,'modelPath',< /path/to/saved/model >,'nameSavedModel',< nameOfSavedModel >)
+runTest(<OptimalNumberOfLatentVar>,'dataPath',</path/to/test/data>,'savePath',</path/to/save/results>,'modelPath',</path/to/saved/model>,'nameSavedModel',<nameOfSavedModel>)
 ```
 
 
 where:
 
-- < OptimalNumberOfLatentVar > specifies the number of latent variables that we want to use for testing (it should be the optimal value selected on the validation set)
-
-With optional parameters:
-
-- < /path/to/save/results > specifies the path where test results are saved, default='.'
-- < /path/to/saved/model > specifies the path where the trained model is saved, default='.'
-- < nameOfSavedModel > specifies the name of the .mat file we saved after training, containing the model with all the specified number of latent variables, default='trainedModel.mat'
-- < /path/to/test/data > specifies the path to test data, default='.', see below for requirements on the data format
+- ```<OptimalNumberOfLatentVar>``` specifies the number of latent variables that we want to use for testing (it should be the optimal value selected on the validation set)
+- ```</path/to/save/results>``` (optional) specifies the path where test results are saved, default='.'
+- ```</path/to/saved/model>``` (optional) specifies the path where the trained model is saved, default='.'
+- ```<nameOfSavedModel>``` (optional) specifies the name of the .mat file we saved after training, containing the model with all the specified number of latent variables, default='trainedModel.mat'
+- ```</path/to/test/data>``` (optional) specifies the path to test data, default='.', see below for requirements on the data format
 
 
 The code assumes that test data are provided in the following format: 
