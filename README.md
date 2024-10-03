@@ -40,11 +40,11 @@ python runTraining.py -nLat < LatentValues > [-sp < /path/to/save/model > -n < n
 where 
 
 - ```-nLat``` or ```--nLatentValues``` specifies all the values for the number of latent variables that you want to try. E.g. -nLat 20,50,70,100
-- -sp or --savePath (optional) specifies the path where the trained model is saved, default="."
-- -n or --nameSavedModel (optional) specifies the name given to the trained model, default="trainedModel"
-- -dp or --dataPath (optional) specifies tha folder containing the training data, default=".", see below for requirements on the data format
-- -th or --maskThreshold (optional) specifies the threshold to use for masking out the background in images before trianing the model. The threshold is applied to the average volume scaled by its maximum. default=0.01
-- -fig or --showFigures (optional): to display figures 
+- ```-sp``` or ```--savePath``` (optional) specifies the path where the trained model is saved, default="."
+- ```-n``` or ```--nameSavedModel``` (optional) specifies the name given to the trained model, default="trainedModel"
+- ```-dp``` or ```--dataPath``` (optional) specifies tha folder containing the training data, default=".", see below for requirements on the data format
+- ```-th``` or ```--maskThreshold``` (optional) specifies the threshold to use for masking out the background in images before trianing the model. The threshold is applied to the average volume scaled by its maximum. default=0.01
+- ```-fig``` or ```--showFigures``` (optional): to display figures 
 
 
 The code assumes that training data are provided in the following format: 
@@ -68,15 +68,12 @@ runTraining(< LatentValues >,'dataPath',< /path/to/training/data >,'savePath',< 
 ```
 where 
 
-- < LatentValues > specifies all the values for the number of latent variables that you want to try. E.g. [20,50,70,100]
-
-Optional parameters:
-
-- < /path/to/save/model > specifies the path where the trained model is saved, default='.'
-- < nameOfSavedModel > specifies the name given to trained model, default='trainedModel'
-- < /path/to/training/data > specifies the folder containing the training data, default='.'. See below for requirements on the data format
-- < threshold_value > specifies the threshold to use for masking out the background before trianing the model. The threshold is applied to the average volume scaled by its maximum. default=0.01
-- < boolean_to_show_figures > specifies if figures are displayed when running, default true
+- ```< LatentValues >``` specifies all the values for the number of latent variables that you want to try. E.g. [20,50,70,100]
+- ```< /path/to/save/model >``` (optional) specifies the path where the trained model is saved, default='.'
+- ```< nameOfSavedModel >``` (optional) specifies the name given to trained model, default='trainedModel'
+- ```< /path/to/training/data >``` (optional) specifies the folder containing the training data, default='.'. See below for requirements on the data format
+- ```< threshold_value >``` (optional) specifies the threshold to use for masking out the background before trianing the model. The threshold is applied to the average volume scaled by its maximum. default=0.01
+- ``` < boolean_to_show_figures >``` (optional) specifies if figures are displayed when running, default=true
 
 
 
