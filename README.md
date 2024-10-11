@@ -6,7 +6,7 @@ In this repository, we present a model for image-based single-subject prediction
 **Accurate and explainable image-based prediction using a lightweight generative model**. Mauri, C., Cerri, S., Puonti, O., Mühlau, M. and Van Leemput, K., 2022. In ‘International Conference on Medical Image Computing and
 Computer-Assisted Intervention’, Springer, pp. 448–458. https://link.springer.com/chapter/10.1007/978-3-031-16452-1_43
 
-**A Lightweight Causal Model for Interpretable Subject-level Prediction**. Mauri, C., Cerri, S., Puonti, O., Mühlau, M. and Van Leemput, K., 2023. arXiv preprint arXiv:2306.11107
+**A Lightweight Generative Model for Interpretable Subject-level Prediction**. Mauri, C., Cerri, S., Puonti, O., Mühlau, M. and Van Leemput, K., 2023. arXiv preprint arXiv:2306.11107
 https://arxiv.org/pdf/2306.11107.pdf
 
 
