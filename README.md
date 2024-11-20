@@ -23,9 +23,9 @@ conda create -n gen_env python=3.8 scipy nibabel matplotlib hdf5storage scikit-l
 
 ## Preprocessing
 
-- the images needs to be nonlinearly registered to a common space. This can be done e.g. using Freesurfer...
+- the images needs to be nonlinearly registered to a common space. This can be done e.g. using Freesurfer.
 
-- the experiments in the paper have been performed with downsampling the images.. this can be done with..
+- the experiments in the paper have been performed with downsampled images. 
 
 ## Training
 
